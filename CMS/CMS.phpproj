@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>CMS</Name>
+    <ProjectGuid>c08e761b-608b-4341-971b-1b2f21602003</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CMS</RootNamespace>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <AssemblyName>CMS</AssemblyName>
+    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+    <Server>PHPDev</Server>
+    <PublishEvent>None</PublishEvent>
+    <PHPDevAutoPort>True</PHPDevAutoPort>
+    <PHPDevPort>19647</PHPDevPort>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <IISProjectUrl>http://localhost:19647/</IISProjectUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="cart.php" />
+    <Compile Include="checkout.php" />
+    <Compile Include="contact.php" />
+    <Compile Include="db.php" />
+    <Compile Include="footer.php" />
+    <Compile Include="header.php" />
+    <Compile Include="index.php" />
+    <Compile Include="login.php" />
+    <Compile Include="navigation.php" />
+    <Compile Include="pages.php" />
+    <Compile Include="process_contact.php" />
+    <Compile Include="product_router.php" />
+    <Compile Include="products.php" />
+    <Compile Include="product_details.php" />
+    <Compile Include="page_router.php" />
+    <Compile Include="sidebar.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\apples.jpg" />
+    <Content Include="images\blueberries.jpg" />
+    <Content Include="images\bread.png" />
+    <Content Include="images\carrots.jpg" />
+    <Content Include="images\cheese.jpg" />
+    <Content Include="images\egg.png" />
+    <Content Include="images\facebook.png" />
+    <Content Include="images\lettuce.jpg" />
+    <Content Include="images\linkedin.png" />
+    <Content Include="images\oranges.jpg" />
+    <Content Include="images\peas.jpg" />
+    <Content Include="images\pinterest.png" />
+    <Content Include="images\squash.jpg" />
+    <Content Include="images\twitter.png" />
+    <Content Include="style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+</Project>
