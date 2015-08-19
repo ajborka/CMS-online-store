@@ -1,4 +1,8 @@
 <?php
+include_once 'db.php';
+$db = new DB();
+$cart = $db->getItemsFromCart();
+
 //Set the page title and meta.
 $page_title = "Your cart";
 $meta_description = "Shopping cart for abs Grocery.";
@@ -10,15 +14,17 @@ include_once 'header.php';
 if($_POST['update_cart']) {
 
     //Loop through the items in the cart, updating the quantity.
-foreach($_SESSION['cart']['items'] as $item) {
+foreach($cart as $item) {
     $quantity_field = $item['productid'] . "_quantity"; //Quantity field from the cart.
     
     //Remove the item if quantity is 0.
     if($_POST[$quantity_field] == "0" || !isset($_POST[$quantity_field]) || empty($_POST[$quantity_field]) || $_POST[$quantity_field] == null || $_POST[$quantity_field] == "") {
-        unset($_SESSION['cart']['items'][$item['productid']]);
+        $db->removeItemFromCart($item['id']);
+        unset($cart[$item['productid']]);        
     } //End remove from cart.
     else {
-        $_SESSION['cart']['items'][$item['productid']]['quantity'] = $_POST[$quantity_field]; //Update the new quantity.
+        $db->updateItemInCart($item['id'], $_POST[$quantity_field]);
+        $cart[$item['productid']]['quantity'] = $_POST[$quantity_field];
     } // update quantities.    
     } //End loop through items in cart.
 } //End update cart process.
@@ -34,11 +40,12 @@ if(!isset($_SESSION['user']['authenticated']) || $_SESSION['user']['authenticate
 } //End checkout process through a login page.
 ?>
 <div id = "wrapper">
-<div id = "navigation"><?php  include_once 'navigation.php'; ?></div>
+<div id = "navigation"><?php  include_once '../navigation.php'; ?></div>
 <div id = "sidebar"><?php  include_once 'sidebar.php'; ?></div>
 <div id = "content">
     <h1>Cart</h1>
-        <form method = "post" action = "<?php print $_SERVER['php_self']?>">
+    <p id="message"><?php print $_SESSION['message']; ?></p>    
+    <form method = "post" action = "<?php print $_SERVER['php_self']?>">
         <table>
                                                                  <thead>
                                                                      <tr>
@@ -50,11 +57,11 @@ if(!isset($_SESSION['user']['authenticated']) || $_SESSION['user']['authenticate
                                                                      </tr>
                                                                  </thead>
                                                              <tbody>
-<?php foreach($_SESSION['cart']['items'] as $item) {?>
+<?php foreach($cart as $item) {?>
 <tr>
                                                                      <td><?php print $item['productid'];?></td>
                                                                  <td><?php print $item['description'];?></td>
-                                                                 <td><?php print $item['weight'];?></td>
+                                                                 <td><?php print $item['weight'] * $item['quantity'];?>&nbsp; <?php print $item['weight_unit']; ?></td>
                                                                  <td>$<?php print number_format($item['quantity']*$item['price'], 2);?></td>
                                                                  <td><input id="<?php print $item['productid']?>_quantity" type ="text" name="<?php print $item['productid']?>_quantity" value = "<?php print $item['quantity']?>" /></td>
                                                                  </tr>

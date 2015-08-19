@@ -23,22 +23,28 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="edit_product.php" />
+    <Compile Include="add_product.php" />
+    <Compile Include="edit_page.php" />
     <Compile Include="cart.php" />
     <Compile Include="checkout.php" />
     <Compile Include="contact.php" />
     <Compile Include="db.php" />
     <Compile Include="footer.php" />
     <Compile Include="header.php" />
+    <Compile Include="add_page.php" />
+    <Compile Include="remove_page.php" />
+    <Compile Include="pages.php" />
     <Compile Include="index.php" />
     <Compile Include="login.php" />
-    <Compile Include="navigation.php" />
-    <Compile Include="pages.php" />
+    <Compile Include="page_functions.php" />
     <Compile Include="process_contact.php" />
     <Compile Include="product_router.php" />
-    <Compile Include="products.php" />
     <Compile Include="product_details.php" />
     <Compile Include="page_router.php" />
+    <Compile Include="remove_product.php" />
     <Compile Include="sidebar.php" />
+    <Compile Include="test.php" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\apples.jpg" />

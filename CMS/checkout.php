@@ -1,4 +1,9 @@
 <?php
+
+include_once 'db.php';
+$db = new DB();
+$cart = $db->getItemsFromCart();
+
 // The page title. Leave description and keywords out to make it difficult to find the page.
 $page_title = "Checkout";
 
@@ -12,7 +17,7 @@ if(!$_SESSION['user']['authenticated']) {
 ?>
 
 <div id = "wrapper">
-<div id = "navigation"><?php  include_once 'navigation.php'; ?></div>
+<div id = "navigation"><?php  include_once '../navigation.php'; ?></div>
 <div id = "sidebar"><?php  include_once 'sidebar.php'; ?></div>
 <div id = "content">
     <h1>Checkout</h1>
@@ -28,11 +33,11 @@ if(!$_SESSION['user']['authenticated']) {
                                                                      </tr>
                                                                  </thead>
                                                              <tbody>
-<?php foreach($_SESSION['cart']['items'] as $item) {?>
+<?php foreach($cart as $item) {?>
 <tr>
                                                                      <td><?php print $item['productid'];?></td>
                                                                  <td><?php print $item['description'];?></td>
-                                                                 <td><?php print $item['weight'];?></td>
+                                                                 <td><?php print $item['weight'] * $item['quantity'];?>&nbsp;<?php print $item['weight_unit']; ?></td>
                                                                  <td>$<?php print number_format($item['quantity']*$item['price'], 2);?></td>
                                                                  <td><?php print $item['quantity'];?></td>
                                                                  </tr>
@@ -62,6 +67,6 @@ if(!$_SESSION['user']['authenticated']) {
 
 <?php
     include_once 'footer.php';
-    unset($_SESSION['cart']);
+    $db->emptyCart();
 } //End checkout process.
 ?>

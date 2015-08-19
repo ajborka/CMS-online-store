@@ -1,15 +1,20 @@
+<?php include_once 'db.php'; ?>
+      <ul>
+<li><a href = "cart.php">Cart (<?php print $db->CountCartItems(); ?>)</a></li>
+<li><a href="login.php">Login</a></li>
 <?php 
-include_once 'pages.php';
-?>
-<ul>
-<li><a href = "cart.php">Cart (<?php print count($_SESSION['cart']['items']);?>)</a></li>
-<?php 
-foreach($pages as $page) {
-	print "<li><a href = \"index.php?pageid={$page['pageid']}\">{$page['title']}</a></li>";
+$result = $db->getSidebar();
+while($links = mysqli_fetch_array($result)) {
+	print "<li><a href = \"index.php?pageid={$links['pageid']}\">{$links['title']}</a></li>";
 }
-	
-?>
+	?>
 <li><a href="contact.php">Contact</a></li>
+<?php
+//Show the management pages only to administrators and publishers.
+if(isAdmin() || isPublisher()) {
+    print "<li><a href=\"pages.php\">Manage pages</a></li>";
+    } //End show management pages.
+?>
 </ul>
 
 <div>

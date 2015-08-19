@@ -7,7 +7,7 @@ $meta_keywords = "AB Grocery, contact, product requests, product inquiries";
 include_once 'header.php';
 ?>
 <div id = "wrapper">
-<div id = "navigation"><?php  include_once 'navigation.php'; ?></div>
+<div id = "navigation"><?php  include_once '../navigation.php'; ?></div>
 <div id = "sidebar"><?php  include_once 'sidebar.php'; ?></div>
 <div id = "content">
     <h1>Contact us</h1>

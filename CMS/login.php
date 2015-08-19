@@ -4,16 +4,14 @@ $page_title = "login";
 $meta_description = "AB Grocery's login form.";
 $meta_keywords = "AB Grocery account, login, checkout";
 
-//The temporary username/password for testing.
-$username = "test@mysite.com";
-$password = "my_password";
+include_once 'header.php';
 
 include_once 'header.php';
 
 //Attempt to log the user in.
 if($_POST['login']) {
-    if($username == $_POST['username'] && $password == $_POST['password']) {
-        $_SESSION['user']['username'] = $username;
+            if($user = $db->authenticateUser($_POST['username'], crypt($_POST['password'], $_POST['username']))) {
+                $_SESSION['user'] = $user;
         $_SESSION['user']['authenticated'] = true;
         header('location: ' . $_SESSION['destination']);
     } //End signing the user in.
@@ -27,7 +25,7 @@ else {
 ?>
 
 <div id = "wrapper">
-<div id = "navigation"><?php  include_once 'navigation.php'; ?></div>
+<div id = "navigation"><?php  include_once '../navigation.php'; ?></div>
 <div id = "sidebar"><?php  include_once 'sidebar.php'; ?></div>
 <div id = "content">
     <h1>Login</h1>

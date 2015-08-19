@@ -1,6 +1,8 @@
 <?php
-$productid = $_GET['productid']; //Determines the product to load.
+$productid = urldecode(strip_tags(trim($_GET['productid']))); //Determines the product to load.
 include_once 'product_router.php';
+include_once 'db.php';
+$db = new DB();
 
 //Set the page title and meta.
 $page_title = $current_product['productid'];
@@ -11,14 +13,15 @@ include_once 'header.php';
 //Check to see if the add to cart posted.
 if(isset($_POST['quantity']) && !empty($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] != "0") {
     $current_product['quantity'] = $_POST['quantity'];
-    $_SESSION['cart']['items'][$productid] = $current_product;
-    unset($_POST['quantity']);    
+    //Add the product to the cart.
+    $db->addItemToCart($current_product['id'], $current_product['quantity']);
+             unset($_POST['quantity']);    
     header('location: cart.php');
                                  }
 
 ?>
 <div id = "wrapper">
-<div id = "navigation"><?php  include_once 'navigation.php'; ?></div>
+<div id = "navigation"><?php  include_once '../navigation.php'; ?></div>
 <div id = "sidebar"><?php  include_once 'sidebar.php'; ?></div>
 <div id = "content">
     <h1><?php print $current_product['productid'];?></h1>
@@ -38,7 +41,7 @@ if(isset($_POST['quantity']) && !empty($_POST['quantity']) && is_numeric($_POST[
                                                                  <tr>
                                                                      <td><?php print $current_product['productid'];?></td>
                                                                  <td><?php print $current_product['description'];?></td>
-                                                                 <td><?php print $current_product['weight'];?></td>
+                                                                 <td><?php print $current_product['weight'];?>&nbsp;<?php print $current_product['weight_unit'] ?></td>
                                                                  <td>$<?php print number_format($current_product['price'], 2);?></td>
                                                                  <td><input id="quantity_field" type ="text" name="quantity" size ="4" /><input id = "update_cart" type="submit" value="add to cart" /></td>
                                                                  </tr>
